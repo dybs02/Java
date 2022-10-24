@@ -8,7 +8,7 @@ public class MyDateDot extends MyDate{
         Matcher mDate = pattern.matcher(s);
 
         if (mDate.matches()) {
-            String[] split = mDate.group(0).split("/| ");
+            String[] split = mDate.group(0).split("[.]| ");
 
             this.day = Integer.parseInt(split[1]);
             this.month = Integer.parseInt(split[2]);

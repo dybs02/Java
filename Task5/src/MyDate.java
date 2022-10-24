@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,29 +24,33 @@ public class MyDate {
         return mDate.matches();
     }
 
-    public static void convertFile(String inputFile, String outputFile) throws FileNotFoundException {
+    public static int convertFile(String inputFile, String outputFile) throws FileNotFoundException {
+        int writtenLines = 0;
         BufferedReader br = new BufferedReader(new FileReader(inputFile));
-//        PrintWriter writer = new PrintWriter("the-file-name.txt");
-        FileWriter out;
-        try {
-            out = new FileWriter(outputFile);
-        }catch (java.io.IOException e){
-            throw new RuntimeException(e);
-        }
 
         try {
+            BufferedWriter writer = Files.newBufferedWriter(
+                    FileSystems.getDefault().getPath(outputFile),
+                    StandardCharsets.US_ASCII);
             String line = br.readLine();
 
             while (line != null) {
-                System.out.println(isCorrectFormat(line) + "\t" + line);
-                System.out.println(new MyDateSlash(line));
-
+                String new_line = (new MyDateDash(line)).toString() + (new MyDateSlash(line)).toString() + (new MyDateDot(line)).toString();
+                if (!new_line.equals("")) {
+                    writer.write(new_line);
+                    writer.newLine();
+                    writtenLines++;
+                }
 
                 line = br.readLine();
             }
+
+            writer.close();
         } catch (java.io.IOException e) {
             throw new RuntimeException(e);
         }
+
+        return writtenLines;
     }
 
     @Override

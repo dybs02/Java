@@ -6,7 +6,7 @@ public class Main {
         try {
             // TODO fix path
 
-            MyDate.convertFile("/home/mateusz/Desktop/Java/Task5/src/InputData.txt", "/home/mateusz/Desktop/Java/Task5/src/out.txt");
+            MyDate.convertFile("/home/mateusz/Desktop/Java/Task5/src/InputData1k.txt", "/home/mateusz/Desktop/Java/Task5/src/out.txt");
 
         } catch (FileNotFoundException ignored) {}
 
