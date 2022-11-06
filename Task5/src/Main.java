@@ -1,17 +1,16 @@
-import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) {
 
-        try {
-            // TODO fix path
+        Path currentPath = Paths.get("");
+        String inputFile = currentPath.toAbsolutePath().toString() + "/InputData1k.txt";
+        String outputFile = currentPath.toAbsolutePath().toString() + "/out.txt";
 
-            MyDate.convertFile("/home/mateusz/Desktop/Java/Task5/src/InputData1k.txt", "/home/mateusz/Desktop/Java/Task5/src/out.txt");
-
-        } catch (FileNotFoundException ignored) {}
-
-//        MyDate d = new MyDateSlash("07/06/1850 Friday");
-//        System.out.println(d);
+        System.out.println(
+            (new MyData()).convertFile(inputFile, outputFile)
+        );
 
     }
 }
