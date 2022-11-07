@@ -15,8 +15,8 @@ public class FileIO {
             this.reader = new BufferedReader(new FileReader(this.inputFile));
             this.writer = new BufferedWriter(new FileWriter(this.outputFile));
         } catch (java.io.IOException e) {
-            System.out.println("Wrong input/output file");
-            System.exit(-1);
+            System.err.println("Wrong input/output file");
+            e.printStackTrace();
         }
     }
 
@@ -24,8 +24,8 @@ public class FileIO {
         try {
             return this.reader.readLine();
         } catch (java.io.IOException e) {
-            System.out.println("Error while reading from file");
-            System.exit(-1);
+            System.err.println("Error while reading from file");
+            e.printStackTrace();
         }
         return "";
     }
@@ -36,8 +36,8 @@ public class FileIO {
             this.writer.flush();
             return 1;
         } catch (java.io.IOException e) {
-            System.out.println("Error while writing to file");
-            System.exit(-1);
+            System.err.println("Error while writing to file");
+            e.printStackTrace();
         }
         return 0;
     }
@@ -47,8 +47,8 @@ public class FileIO {
             this.reader.close();
             this.writer.close();
         } catch (java.io.IOException e) {
-            System.out.println("Error while closing files");
-            System.exit(-1);
+            System.err.println("Error while closing files");
+            e.printStackTrace();
         }
     }
 }
