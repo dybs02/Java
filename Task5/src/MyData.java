@@ -18,10 +18,10 @@ public class MyData {
 
             return (
                     this.day == obj.day &&
-                    this.month == obj.month &&
-                    this.year == obj.year &&
-                    this.dayName.equals(obj.dayName)
-                    );
+                            this.month == obj.month &&
+                            this.year == obj.year &&
+                            this.dayName.equals(obj.dayName)
+            );
         }
 
         @Override
