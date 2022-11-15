@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -11,38 +10,64 @@ public class Main {
             return;
         }
 
-        ArrayList<MyVector> vectors = new ArrayList<>();
-        int count = 0;
-        int numOfVectors = toInt(args[0]);
         scanner = new Scanner(System.in);
+        MyVector sumOfVectors = new MyVector();
+        boolean successful = false;
 
-        while (scanner.hasNextLine() && count < numOfVectors) {
-            ArrayList<Integer> inputValues = new ArrayList<>();
-            System.out.print("Enter vector " + (count+1) + ": ");
-            String[] elements = scanner.nextLine().split(",");
+        while (!successful) {
+            ArrayList<MyVector> inputVectors = getUserVectorsInput(toInt(args[0]));
+            sumOfVectors = new MyVector(inputVectors.get(0).getLength());
+            successful = true;
 
-            for (String element : elements) {
-                Integer num = toInt(element.strip());
-                if (num != null) {
-                    inputValues.add(num);
+            for (MyVector v : inputVectors) {
+                try {
+                    sumOfVectors = sumOfVectors.add(v);
+                } catch (MyVector.DifferentVectorsLengthsException e) {
+                    successful = false;
+                    break;
                 }
             }
+        }
 
-            if (inputValues.size() > 0) {
-                vectors.add(new MyVector(inputValues));
-                count++;
+        FileOutput fileOut = new FileOutput("./sumOfVectors.txt");
+        fileOut.writeLine(sumOfVectors.toString());
+        fileOut.close();
+    }
+
+    public static ArrayList<MyVector> getUserVectorsInput(int numberOfVectors) {
+        ArrayList<MyVector> vectors = new ArrayList<>();
+
+        while (vectors.size() < numberOfVectors) {
+
+            System.out.print("Enter vector " + (vectors.size()+1) + ": ");
+
+            ArrayList<Integer> vectorElements = extractVectorElements(scanner.nextLine());
+            if (vectorElements.size() > 0) {
+                vectors.add(new MyVector(vectorElements));
             }
         }
 
-        for (MyVector v : vectors) {
-            System.out.println(v);
+        return vectors;
+    }
+
+    public static ArrayList<Integer> extractVectorElements(String line) {
+        ArrayList<Integer> vectorElements = new ArrayList<>();
+
+        for (String element : line.split(",")) {
+            Integer num = toInt(element);
+
+            if (num != null) {
+                vectorElements.add(num);
+            }
         }
+
+        return vectorElements;
     }
 
     public static Integer toInt(String s) {
         int num;
         try {
-            num = Integer.parseInt(s);
+            num = Integer.parseInt(s.strip());
         }catch (NumberFormatException e) {
             return null;
         }

@@ -5,4 +5,4 @@ run: Main.java
 	java Main
 
 clean:
-	rm Main.class MyVector.class
+	rm Main.class MyVector.class 'MyVector$$DifferentVectorsLengthsException.class' FileOutput.class

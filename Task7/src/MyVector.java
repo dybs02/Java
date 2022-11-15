@@ -1,12 +1,25 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MyVector {
+
+    public class DifferentVectorsLengthsException extends Exception {
+        public DifferentVectorsLengthsException (int len1, int len2) {
+            super(String.format("Vector lengths are not the same: %d, %d", len1, len2));
+        }
+    }
+
     private ArrayList<Integer> elements;
 
     public MyVector() {
         this.elements = new ArrayList<>();
     }
 
+    public MyVector(int numberOfElements) {
+        this.elements = new ArrayList<>(Collections.nCopies(numberOfElements, 0));
+    }
+
+//    TODO do i need this ?
     public MyVector(int... args) {
         this.elements = new ArrayList<>();
 
@@ -19,9 +32,9 @@ public class MyVector {
         this.elements = new ArrayList<>(arrayList);
     }
 
-    public MyVector add(MyVector v) {
+    public MyVector add(MyVector v) throws DifferentVectorsLengthsException {
         if (this.getLength() != v.getLength()) {
-            return null;
+            throw new DifferentVectorsLengthsException(this.getLength(), v.getLength());
         }
 
         MyVector new_vector = new MyVector();
