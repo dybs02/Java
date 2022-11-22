@@ -1,7 +1,11 @@
 
 
 abstract class TelephoneEntry {
-    public TelephoneNumber telephoneNumber;
+    private TelephoneNumber telephoneNumber;
+
+    public TelephoneEntry(TelephoneNumber telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
 
     public abstract String description();
 

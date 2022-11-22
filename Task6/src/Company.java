@@ -5,9 +5,9 @@ public class Company extends TelephoneEntry{
     private String address;
 
     public Company(String name, String address, int countryCode, int localNumber) {
+        super(new TelephoneNumber(countryCode, localNumber));
         this.name = name;
         this.address = address;
-        this.setTelephoneNumber(new TelephoneNumber(countryCode, localNumber));
     }
 
     @Override
@@ -16,7 +16,7 @@ public class Company extends TelephoneEntry{
                 "Company name: %s\nAddress: %s\nPhone number: %s",
                 this.name,
                 this.address,
-                this.telephoneNumber
+                this.getTelephoneNumber()
         );
     }
 

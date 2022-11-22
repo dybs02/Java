@@ -6,10 +6,10 @@ public class Person extends TelephoneEntry{
     private String address;
 
     public Person(String name, String lastName, String address, int countryCode, int localNumber) {
+        super(new TelephoneNumber(countryCode, localNumber));
         this.name = name;
         this.lastName = lastName;
         this.address = address;
-        this.setTelephoneNumber(new TelephoneNumber(countryCode, localNumber));
     }
 
     @Override
@@ -19,7 +19,7 @@ public class Person extends TelephoneEntry{
                 this.name,
                 this.lastName,
                 this.address,
-                this.telephoneNumber
+                this.getTelephoneNumber()
         );
     }
 
