@@ -5,12 +5,17 @@ import java.util.Vector;
 public class MyVector {
 
     public class DifferentVectorsLengthsException extends Exception {
+        public MyVector vector1;
+        public MyVector vector2;
+
         public DifferentVectorsLengthsException (String msg) {
             super(msg);
         }
 
         public DifferentVectorsLengthsException (MyVector v1, MyVector v2) {
             super(String.format("Vectors have different lengths:\n%s \n%s", v1, v2));
+            vector1 = v1;
+            vector2 = v2;
         }
     }
 
