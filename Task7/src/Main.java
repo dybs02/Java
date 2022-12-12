@@ -23,6 +23,7 @@ public class Main {
                 try {
                     sumOfVectors = sumOfVectors.add(v);
                 } catch (MyVector.DifferentVectorsLengthsException e) {
+                    System.out.println(e);
                     successful = false;
                     break;
                 }
