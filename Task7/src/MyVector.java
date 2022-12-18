@@ -4,18 +4,18 @@ import java.util.Vector;
 
 public class MyVector {
 
-    public class DifferentVectorsLengthsException extends Exception {
-        public MyVector vector1;
-        public MyVector vector2;
+    public static class DifferentVectorsLengthsException extends Exception {
+        public ArrayList<Integer> lengths = new ArrayList<>();
 
         public DifferentVectorsLengthsException (String msg) {
             super(msg);
         }
 
-        public DifferentVectorsLengthsException (MyVector v1, MyVector v2) {
-            super(String.format("Vectors have different lengths:\n%s \n%s", v1, v2));
-            vector1 = v1;
-            vector2 = v2;
+        public DifferentVectorsLengthsException(String msg, ArrayList<MyVector> vectors) {
+            super(msg);
+            for (MyVector v : vectors) {
+                lengths.add(v.getLength());
+            }
         }
     }
 
@@ -34,21 +34,29 @@ public class MyVector {
         this.elements = new ArrayList<>(arrayList);
     }
 
-    public MyVector add(MyVector v) throws DifferentVectorsLengthsException {
-        if (this.getLength() != v.getLength()) {
-            throw new DifferentVectorsLengthsException(this, v);
+    public static MyVector sumAll(ArrayList<MyVector> vectors) throws DifferentVectorsLengthsException {
+        int baseLength = vectors.get(0).getLength();
+        MyVector sumOfVectors = new MyVector(baseLength);
+
+        for (MyVector v : vectors) {
+            if (v.getLength() != baseLength) {
+                throw new DifferentVectorsLengthsException("Cannot add vectors with different lengths", vectors);
+            }
+
+            for (int i = 0; i < baseLength; i++) {
+                sumOfVectors.elements.set(i, sumOfVectors.getElement(i) + v.getElement(i));
+            }
         }
 
-        MyVector new_vector = new MyVector();
-        for (int i = 0; i < this.elements.size(); i++) {
-            new_vector.addElement(this.elements.get(i) + v.elements.get(i));
-        }
-
-        return new_vector;
+        return sumOfVectors;
     }
 
     public void addElement(int e) {
         this.elements.add(e);
+    }
+
+    public int getElement(int i) {
+        return this.elements.get(i);
     }
 
     public int getLength() {

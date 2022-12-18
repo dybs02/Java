@@ -16,17 +16,13 @@ public class Main {
 
         while (!successful) {
             ArrayList<MyVector> inputVectors = getUserVectorsInput(toInt(args[0]));
-            sumOfVectors = new MyVector(inputVectors.get(0).getLength());
             successful = true;
 
-            for (MyVector v : inputVectors) {
-                try {
-                    sumOfVectors = sumOfVectors.add(v);
-                } catch (MyVector.DifferentVectorsLengthsException e) {
-                    System.out.println(e);
-                    successful = false;
-                    break;
-                }
+            try {
+                sumOfVectors = MyVector.sumAll(inputVectors);
+            } catch (MyVector.DifferentVectorsLengthsException e) {
+                System.out.println(e);
+                successful = false;
             }
         }
 
